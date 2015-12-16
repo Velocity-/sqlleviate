@@ -61,5 +61,14 @@ SqlBatch<Account> batch = QueryBuilder.batch("INSERT INTO accounts (name,passwor
 batch.execute(accs);
 ```
 
+### SQL background workers with futures
+```java
+// Create a new worker that lets the user do the committing (turns autocommit off), 
+// prints the SQL upon failure and retries 5 times.
+SqlWorker worker = SqlBuilder.worker().option(WorkerOption.MANUAL_COMMIT).option(WorkerOption.PRINT_ON_FAIL).retries(5);
+worker.feed("SELECT count(*) FROM accounts", set -> {
+    logger.info("Number of accounts: {}.", set.getInt("count"));
+});
+```
 
 ^ Prototypes :-)
