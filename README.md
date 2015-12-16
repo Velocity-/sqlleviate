@@ -20,7 +20,7 @@ String built = select.build();
 ```
 
 ```java
-NamedStatement ns = QueryBuilder.named("SELECT * FROM accounts WHERE id=").p("id").sql(" AND name ILIKE ").pstr("name");
+NamedStatement ns = QueryBuilder.named("SELECT * FROM accounts WHERE id=").p("id").s(" AND name ILIKE ").pstr("name");
 ns.setString("name", myName);
 ns.setInt("id", 123); // Order of SQL parameters is irrelevant
 ```
