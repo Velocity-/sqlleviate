@@ -32,6 +32,7 @@ class Account {
     int money;
 }
 
+// Either a lambda or any class implementing BatchTranslator
 SqlBatch<Account> batch = QueryBuilder.batch("INSERT INTO accounts (name,password,money) VALUES (?,?,?)", (stmt, acc) -> {
     stmt.setString(1, acc.name);
     stmt.setString(2, acc.password);
