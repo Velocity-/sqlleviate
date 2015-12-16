@@ -71,4 +71,15 @@ worker.feed("SELECT count(*) FROM accounts", set -> {
 });
 ```
 
+### Play Framework support
+```java
+public static Promise<Result> index() {
+    Promise promise = new Promise<>();
+    worker.feed("SELECT count(*) FROM accounts", set -> {
+        promise.success(ok(set.getInt("count")));
+    });
+    return promise;
+}
+```
+
 ^ Prototypes :-)
