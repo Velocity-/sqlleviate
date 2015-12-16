@@ -26,6 +26,7 @@ ns.setInt("id", 123); // Order of SQL parameters is irrelevant
 ```
 
 ```java
+// Simple pojo
 class Account {
     String name;
     String password;
@@ -41,6 +42,21 @@ SqlBatch<Account> batch = QueryBuilder.batch("INSERT INTO accounts (name,passwor
 
 List<Account> accs = Arrays.asList(john, joe, kevy);
 batch.execute(accs); // Or any other collection or array object.. or even individually.
+
+
+// Alternatively...
+class Account implements Batchable {
+    // .. fields ommitted, see above classdef
+    public void batch(PreparedStatement stmt) {
+        stmt.setString(1, acc.name);
+        stmt.setString(2, acc.password);
+        stmt.setInt(3, acc.money);
+    }
+}
+
+// This is only legal if the type implements Batchable as above
+SqlBatch<Account> batch = QueryBuilder.batch("INSERT INTO accounts (name,password,money) VALUES (?,?,?)").build();
+batch.execute(accs);
 ```
 
 
