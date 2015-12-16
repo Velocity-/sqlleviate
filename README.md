@@ -1,7 +1,7 @@
 # sqlleviate
 Alleviates SQL use in Java projects by adding high-level API's for things like batch inserts, prepared statements and querying.
 
-
+#### Query building with control statements
 ```java
 QueryBuilder.Select select = QueryBuilder.selectAll("accounts");
 
@@ -19,12 +19,14 @@ if (notTooMany)
 String built = select.build();
 ```
 
+### Named prepared statements
 ```java
 NamedStatement ns = QueryBuilder.named("SELECT * FROM accounts WHERE id=").p("id").s(" AND name ILIKE ").pstr("name");
 ns.setString("name", myName);
 ns.setInt("id", 123); // Order of SQL parameters is irrelevant
 ```
 
+### Batch inserts with objects
 ```java
 // Simple pojo
 class Account {
